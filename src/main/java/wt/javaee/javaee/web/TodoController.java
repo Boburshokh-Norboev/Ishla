@@ -7,6 +7,7 @@ import wt.javaee.javaee.model.Todo;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -94,13 +95,17 @@ public class TodoController extends HttpServlet {
 	}
 
 	private void insertTodo(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
-		
+
+		HttpSession session = request.getSession(false);
+		String username = (String) session.getAttribute("username");
+
 		String title = request.getParameter("title");
-		String username = request.getParameter("username");
 		String description = request.getParameter("description");
-		
 		boolean isDone = Boolean.parseBoolean(request.getParameter("isDone"));
-		Todo newTodo = new Todo(title, username, description, LocalDate.now(), isDone);
+		String targetDate = request.getParameter("targetDate");
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		LocalDate localDate = LocalDate.parse(targetDate, formatter);
+		Todo newTodo = new Todo(title, username, description, localDate , isDone);
 		todoDAO.insertTodo(newTodo);
 		response.sendRedirect("list");
 	}

@@ -14,7 +14,7 @@
 <body>
 	<header>
 		<nav class="navbar navbar-expand-md navbar-dark"
-			style="background-color: tomato">
+			style="background-color: #0096FF">
 			<div>
 				<a href="#" class="navbar-brand">ISHLA</a>
 			</div>
@@ -55,18 +55,13 @@
 				<tbody>
 					<!--   for (Todo todo: todos) {  -->
 					<c:forEach var="todo" items="${listTodo}">
-
 						<tr>
 							<td><c:out value="${todo.title}" /></td>
 							<td><c:out value="${todo.targetDate}" /></td>
 							<td><c:out value="${todo.status}" /></td>
-
 							<td><a href="edit?id=<c:out value='${todo.id}' />">Tahrirlash</a>
 								&nbsp;&nbsp;&nbsp;&nbsp; <a
 								href="delete?id=<c:out value='${todo.id}' />">O'chirish</a></td>
-
-							<!--  <td><button (click)="updateTodo(todo.id)" class="btn btn-success">Update</button>
-          							<button (click)="deleteTodo(todo.id)" class="btn btn-warning">Delete</button></td> -->
 						</tr>
 					</c:forEach>
 					<!-- } -->

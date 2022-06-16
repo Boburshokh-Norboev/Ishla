@@ -14,7 +14,7 @@
 <body>
 	<header>
 		<nav class="navbar navbar-expand-md navbar-dark"
-			style="background-color: tomato">
+			style="background-color: #0096FF">
 			<div>
 				<a href="#" class="navbar-brand"> ISHLA</a>
 			</div>
@@ -28,28 +28,35 @@
 			</ul>
 		</nav>
 	</header>
+
+
 	<div class="container col-md-5">
 		<div class="card">
 			<div class="card-body">
+
 				<c:if test="${todo != null}">
 					<form action="update" method="post">
 				</c:if>
+
 				<c:if test="${todo == null}">
 					<form action="insert" method="post">
 				</c:if>
-				<caption>
-					<h2>
-						<c:if test="${todo != null}">
-            			Tahrirlash
-            		</c:if>
-						<c:if test="${todo == null}">
-            			Qo'shish
-            		</c:if>
-					</h2>
-				</caption>
+
+					<caption>
+						<h2>
+							<c:if test="${todo != null}">
+            					Tahrirlash
+            				</c:if>
+							<c:if test="${todo == null}">
+            					Qo'shish
+            				</c:if>
+						</h2>
+					</caption>
+
 				<c:if test="${todo != null}">
 					<input type="hidden" name="id" value="<c:out value='${todo.id}' />" />
 				</c:if>
+
 				<fieldset class="form-group">
 					<label for="title">Nomi </label>
 					<input type="text"
@@ -82,7 +89,6 @@
 			</div>
 		</div>
 	</div>
-
 	<jsp:include page="../common/footer.jsp"></jsp:include>
 </body>
 </html>

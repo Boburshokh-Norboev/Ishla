@@ -1,6 +1,6 @@
 <header>
 	<nav class="navbar navbar-expand-md navbar-dark"
-		style="background-color: tomato">
+		style="background-color: #0096FF">
 		<div>
 			<a href="<%= request.getContextPath() %>" class="navbar-brand"> ISHLA</a>
 		</div>
