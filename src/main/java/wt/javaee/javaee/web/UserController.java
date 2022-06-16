@@ -45,16 +45,16 @@ public class UserController extends HttpServlet {
 
 		try {
 			int result = userDao.registerEmployee(employee);
-			if(result == 1) {
-				request.setAttribute("NOTIFICATION", "User Registered Successfully!");
-			}
-			
+			if(result == 1) request.setAttribute("NOTIFICATION", "Muvaffaqiyatli ro'yhatdan o'tdingiz !");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("login/login.jsp");
+			dispatcher.forward(request, response);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			request.setAttribute("NOTIFICATION", "Iltimos qaytadan urinib ko'ring!");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("register/register.jsp");
+			dispatcher.forward(request, response);
 			e.printStackTrace();
 		}
 
-		RequestDispatcher dispatcher = request.getRequestDispatcher("register/register.jsp");
-		dispatcher.forward(request, response);
+
 	}
 }

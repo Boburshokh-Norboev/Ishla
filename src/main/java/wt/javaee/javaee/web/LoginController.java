@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebServlet("/login")
@@ -34,6 +35,10 @@ public class LoginController extends HttpServlet {
 		LoginBean loginBean = new LoginBean(request.getParameter("username"), request.getParameter("password"));
 		try {
 			if (loginDao.validate(loginBean)) {
+
+				HttpSession session=request.getSession();
+				session.setAttribute("username", loginBean.getUsername());
+
 				RequestDispatcher dispatcher = request.getRequestDispatcher("todo/todo-list.jsp");
 				dispatcher.forward(request, response);
 			}

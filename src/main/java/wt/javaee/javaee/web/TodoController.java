@@ -15,14 +15,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-
-/**
- * ControllerServlet.java This servlet acts as a page controller for the
- * application, handling all requests from the todo.
- * 
- * @author Ramesh Fadatare
- */
+import javax.servlet.http.HttpSession;
 
 @WebServlet("/")
 public class TodoController extends HttpServlet {
@@ -74,7 +67,11 @@ public class TodoController extends HttpServlet {
 
 	private void listTodo(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException, ServletException {
-		List<Todo> listTodo = todoDAO.selectAllTodos();
+
+		HttpSession session = request.getSession(false);
+		String username = (String) session.getAttribute("username");
+
+		List<Todo> listTodo = todoDAO.selectByUsername( username );
 		request.setAttribute("listTodo", listTodo);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("todo/todo-list.jsp");
 		dispatcher.forward(request, response);

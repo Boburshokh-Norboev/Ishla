@@ -16,8 +16,9 @@
 <jsp:include page="../common/header.jsp"></jsp:include>
 <div class="container">
 
-    <h2>Ro\yhatdan o'tish</h2>
+    <h2>Ro'yhatdan o'tish</h2>
     <div class="col-md-6 col-md-offset-3">
+
         <div class="alert alert-success center" role="alert">
             <p>${NOTIFICATION}</p>
         </div>

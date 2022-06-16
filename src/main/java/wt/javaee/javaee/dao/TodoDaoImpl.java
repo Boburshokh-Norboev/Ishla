@@ -18,6 +18,7 @@ public class TodoDaoImpl implements TodoDao {
 
 	private static final String SELECT_TODO_BY_ID = "select id,title,username,description,target_date,is_done from todos where id =?";
 	private static final String SELECT_ALL_TODOS = "select * from todos";
+	private static final String SELECT_BY_USER = "select * from todos where username = ?";
 	private static final String DELETE_TODO_BY_ID = "delete from todos where id = ?;";
 	private static final String UPDATE_TODO = "update todos set title = ?, username= ?, description =?, target_date =?, is_done = ? where id = ?;";
 
@@ -68,7 +69,6 @@ public class TodoDaoImpl implements TodoDao {
 		List<Todo> todos = new ArrayList<>();
 		try (Connection connection = JDBCUtils.getConnection();
 				PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_TODOS)) {
-			System.out.println(preparedStatement);
 			ResultSet rs = preparedStatement.executeQuery();
 			while (rs.next()) {
 				todos.add( newTodoFromRS(rs) ); }
@@ -78,7 +78,22 @@ public class TodoDaoImpl implements TodoDao {
 		return todos;
 	}
 
-	@Override
+    @Override
+    public List<Todo> selectByUsername(String username) {
+		List<Todo> todos = new ArrayList<>();
+		try (Connection connection = JDBCUtils.getConnection();
+			 PreparedStatement preparedStatement = connection.prepareStatement(SELECT_BY_USER)) {
+			preparedStatement.setString(1, username);
+			ResultSet rs = preparedStatement.executeQuery();
+			while (rs.next()) {
+				todos.add( newTodoFromRS(rs) ); }
+		} catch (SQLException exception) {
+			JDBCUtils.printSQLException(exception);
+		}
+		return todos;
+    }
+
+    @Override
 	public void deleteTodo(int id) throws SQLException {
 		try (Connection connection = JDBCUtils.getConnection();
 				PreparedStatement statement = connection.prepareStatement(DELETE_TODO_BY_ID)) {

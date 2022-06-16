@@ -13,6 +13,8 @@ public interface TodoDao {
 
 	List<Todo> selectAllTodos();
 
+	List<Todo> selectByUsername(String username);
+
 	void deleteTodo(int id) throws SQLException;
 
 	void updateTodo(Todo todo) throws SQLException;
