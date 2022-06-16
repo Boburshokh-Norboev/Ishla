@@ -37,22 +37,19 @@
 				<c:if test="${todo == null}">
 					<form action="insert" method="post">
 				</c:if>
-
 				<caption>
 					<h2>
 						<c:if test="${todo != null}">
-            			Edit Todo
+            			Tahrirlash
             		</c:if>
 						<c:if test="${todo == null}">
-            			Add New Todo
+            			Qo'shish
             		</c:if>
 					</h2>
 				</caption>
-
 				<c:if test="${todo != null}">
 					<input type="hidden" name="id" value="<c:out value='${todo.id}' />" />
 				</c:if>
-
 				<fieldset class="form-group">
 					<label for="title">Nomi </label>
 					<input type="text"

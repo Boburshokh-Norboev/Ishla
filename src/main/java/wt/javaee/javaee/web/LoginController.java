@@ -31,12 +31,7 @@ public class LoginController extends HttpServlet {
 	}
 
 	private void authenticate(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-		String username = request.getParameter("username");
-		String password = request.getParameter("password");
-		LoginBean loginBean = new LoginBean();
-		loginBean.setUsername(username);
-		loginBean.setPassword(password);
-
+		LoginBean loginBean = new LoginBean(request.getParameter("username"), request.getParameter("password"));
 		try {
 			if (loginDao.validate(loginBean)) {
 				RequestDispatcher dispatcher = request.getRequestDispatcher("todo/todo-list.jsp");

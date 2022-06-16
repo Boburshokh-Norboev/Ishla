@@ -27,7 +27,7 @@
             <div class="form-group">
                 <label for="firstname">Ism :</label>
 				<input type="text"
-					   class="form-control" id="firstname" placeholder="First Name" name="Boltavoy" required>
+					   class="form-control" id="firstName" name="firstName" placeholder="First Name" name="Boltavoy" required>
             </div>
 
             <div class="form-group">

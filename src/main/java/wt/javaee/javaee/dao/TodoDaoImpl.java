@@ -66,7 +66,6 @@ public class TodoDaoImpl implements TodoDao {
 	@Override
 	public List<Todo> selectAllTodos() {
 		List<Todo> todos = new ArrayList<>();
-
 		try (Connection connection = JDBCUtils.getConnection();
 				PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_TODOS)) {
 			System.out.println(preparedStatement);
@@ -84,6 +83,7 @@ public class TodoDaoImpl implements TodoDao {
 		try (Connection connection = JDBCUtils.getConnection();
 				PreparedStatement statement = connection.prepareStatement(DELETE_TODO_BY_ID)) {
 			statement.setInt(1, id);
+			statement.execute();
 		}
 	}
 
