@@ -57,9 +57,13 @@ public class TodoController extends HttpServlet {
 				listTodo(request, response);
 				break;
 			default:
+			{
+				HttpSession session = request.getSession();
+				session.invalidate();
 				RequestDispatcher dispatcher = request.getRequestDispatcher("login/login.jsp");
 				dispatcher.forward(request, response);
 				break;
+			}
 			}
 		} catch (SQLException ex) {
 			throw new ServletException(ex);
@@ -91,7 +95,6 @@ public class TodoController extends HttpServlet {
 		RequestDispatcher dispatcher = request.getRequestDispatcher("todo/todo-form.jsp");
 		request.setAttribute("todo", existingTodo);
 		dispatcher.forward(request, response);
-
 	}
 
 	private void insertTodo(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
@@ -111,19 +114,20 @@ public class TodoController extends HttpServlet {
 	}
 
 	private void updateTodo(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
+
 		int id = Integer.parseInt(request.getParameter("id"));
-		
+
+		HttpSession session = request.getSession(false);
+		String username = (String) session.getAttribute("username");
 		String title = request.getParameter("title");
-		String username = request.getParameter("username");
 		String description = request.getParameter("description");
-		//DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-mm-dd");
-		LocalDate targetDate = LocalDate.parse(request.getParameter("targetDate"));
-		
+
+		String targetDate = request.getParameter("targetDate");
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		LocalDate localDate = LocalDate.parse(targetDate, formatter);
 		boolean isDone = Boolean.parseBoolean(request.getParameter("isDone"));
-		Todo updateTodo = new Todo(id, title, username, description, targetDate, isDone);
-		
+		Todo updateTodo = new Todo(id, title, username, description, localDate, isDone);
 		todoDAO.updateTodo(updateTodo);
-		
 		response.sendRedirect("list");
 	}
 

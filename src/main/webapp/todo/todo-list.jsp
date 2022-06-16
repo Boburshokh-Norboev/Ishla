@@ -49,7 +49,7 @@
 						<th>Nomi</th>
 						<th>Muddati</th>
 						<th>Holati</th>
-						<th>Actions</th>
+						<th>O'zgartirish</th>
 					</tr>
 				</thead>
 				<tbody>

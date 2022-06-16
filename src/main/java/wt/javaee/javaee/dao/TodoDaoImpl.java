@@ -22,8 +22,7 @@ public class TodoDaoImpl implements TodoDao {
 	private static final String DELETE_TODO_BY_ID = "delete from todos where id = ?;";
 	private static final String UPDATE_TODO = "update todos set title = ?, username= ?, description =?, target_date =?, is_done = ? where id = ?;";
 
-	public TodoDaoImpl() {
-	}
+	public TodoDaoImpl() {}
 
 	@Override
 	public void insertTodo(Todo todo) {
@@ -35,9 +34,7 @@ public class TodoDaoImpl implements TodoDao {
 			preparedStatement.setDate(4, JDBCUtils.getSQLDate(todo.getTargetDate()));
 			preparedStatement.setBoolean(5, todo.isStatus());
 			preparedStatement.executeUpdate();
-		} catch (SQLException exception) {
-			JDBCUtils.printSQLException(exception);
-		}
+		} catch (SQLException exception) { JDBCUtils.printSQLException(exception); }
 	}
 
 	@Override
@@ -46,12 +43,9 @@ public class TodoDaoImpl implements TodoDao {
 		try (Connection connection = JDBCUtils.getConnection();
 				PreparedStatement preparedStatement = connection.prepareStatement(SELECT_TODO_BY_ID)) {
 			preparedStatement.setLong(1, todoId);
-			System.out.println(preparedStatement);
 			ResultSet rs = preparedStatement.executeQuery();
 			while (rs.next()) todo = newTodoFromRS(rs);
-		} catch (SQLException exception) {
-			JDBCUtils.printSQLException(exception);
-		}
+		} catch (SQLException exception) { JDBCUtils.printSQLException(exception); }
 		return todo;
 	}
 
@@ -63,9 +57,7 @@ public class TodoDaoImpl implements TodoDao {
 			ResultSet rs = preparedStatement.executeQuery();
 			while (rs.next()) {
 				todos.add( newTodoFromRS(rs) ); }
-		} catch (SQLException exception) {
-			JDBCUtils.printSQLException(exception);
-		}
+		} catch (SQLException exception) { JDBCUtils.printSQLException(exception); }
 		return todos;
 	}
 
@@ -78,9 +70,7 @@ public class TodoDaoImpl implements TodoDao {
 			ResultSet rs = preparedStatement.executeQuery();
 			while (rs.next()) {
 				todos.add( newTodoFromRS(rs) ); }
-		} catch (SQLException exception) {
-			JDBCUtils.printSQLException(exception);
-		}
+		} catch (SQLException exception) { JDBCUtils.printSQLException(exception); }
 		return todos;
     }
 
@@ -89,8 +79,7 @@ public class TodoDaoImpl implements TodoDao {
 		try (Connection connection = JDBCUtils.getConnection();
 				PreparedStatement statement = connection.prepareStatement(DELETE_TODO_BY_ID)) {
 			statement.setInt(1, id);
-			statement.execute();
-		}
+			statement.execute(); }
 	}
 
 	@Override
@@ -103,6 +92,7 @@ public class TodoDaoImpl implements TodoDao {
 			statement.setDate(4, JDBCUtils.getSQLDate(todo.getTargetDate()));
 			statement.setBoolean(5, todo.isStatus());
 			statement.setLong(6, todo.getId());
+			statement.execute();
 		}
 	}
 
